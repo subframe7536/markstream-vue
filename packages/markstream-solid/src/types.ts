@@ -1,5 +1,5 @@
 import type { JSX } from 'solid-js'
-import type { BaseNode, HtmlPolicy, MarkdownIt, ParseOptions, ParsedNode } from 'stream-markdown-parser'
+import type { BaseNode, HtmlPolicy, MarkdownIt, ParsedNode, ParseOptions } from 'stream-markdown-parser'
 import type { CustomComponentMap } from './customComponents'
 import type { SmoothMarkdownStreamOptions } from './useSmoothMarkdownStream'
 

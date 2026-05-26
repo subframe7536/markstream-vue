@@ -1,10 +1,10 @@
 import { resolve } from 'node:path'
 import process from 'node:process'
-import solid from 'vite-plugin-solid'
 import { visualizer } from 'rollup-plugin-visualizer'
 import UnpluginClassExtractor from 'unplugin-class-extractor/vite'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
+import solid from 'vite-plugin-solid'
 import { name } from './package.json'
 
 export default defineConfig(({ mode }) => {

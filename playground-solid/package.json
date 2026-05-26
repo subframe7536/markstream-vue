@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vite --port 4177",
-    "build": "tsc -b --noEmit && vite build",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {

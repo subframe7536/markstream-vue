@@ -1,12 +1,11 @@
 import type { JSX } from 'solid-js'
 import type { ParsedNode, ParseOptions } from 'stream-markdown-parser'
 import type { NodeRendererProps, RenderContext, RenderNodeFn } from './types'
+import { createMemo, For, Show } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
-import { createMemo, For, Match, Show, Switch } from 'solid-js'
 import {
   getHtmlTagFromContent,
   getMarkdown,
-  isUnsafeHtmlUrl,
   normalizeCustomHtmlTags,
   parseMarkdownToStructure,
   sanitizeHtmlAttrs,
@@ -85,20 +84,26 @@ function renderTable(node: any, ctx: RenderContext, prefix: string, renderNode: 
         <Show when={headers.length > 0}>
           <thead>
             <tr>
-              <For each={headers}>{(cell: any, idx) => (
-                <th dir={'auto' as any}>{renderChildren(cell.children || [], ctx, `${prefix}-th-${idx()}`, renderNode)}</th>
-              )}</For>
+              <For each={headers}>
+                {(cell: any, idx) => (
+                  <th dir={'auto' as any}>{renderChildren(cell.children || [], ctx, `${prefix}-th-${idx()}`, renderNode)}</th>
+                )}
+              </For>
             </tr>
           </thead>
         </Show>
         <tbody>
-          <For each={rows}>{(row: any, rowIndex) => (
-            <tr>
-              <For each={row.cells || []}>{(cell: any, cellIndex) => (
-                <td dir={'auto' as any}>{renderChildren(cell.children || [], ctx, `${prefix}-td-${rowIndex()}-${cellIndex()}`, renderNode)}</td>
-              )}</For>
-            </tr>
-          )}</For>
+          <For each={rows}>
+            {(row: any, rowIndex) => (
+              <tr>
+                <For each={row.cells || []}>
+                  {(cell: any, cellIndex) => (
+                    <td dir={'auto' as any}>{renderChildren(cell.children || [], ctx, `${prefix}-td-${rowIndex()}-${cellIndex()}`, renderNode)}</td>
+                  )}
+                </For>
+              </tr>
+            )}
+          </For>
         </tbody>
       </table>
     </div>
@@ -198,12 +203,14 @@ export function createRenderNode(ctxAccessor: () => RenderContext): RenderNodeFn
       case 'definition_list':
         return (
           <dl>
-            <For each={(node as any).items || []}>{(item: any, index) => (
-              <>
-                <dt>{renderChildren(item.term || [], ctx, `${key}-term-${index()}`, renderNode)}</dt>
-                <dd>{renderChildren(item.definition || [], ctx, `${key}-def-${index()}`, renderNode)}</dd>
-              </>
-            )}</For>
+            <For each={(node as any).items || []}>
+              {(item: any, index) => (
+                <>
+                  <dt>{renderChildren(item.term || [], ctx, `${key}-term-${index()}`, renderNode)}</dt>
+                  <dd>{renderChildren(item.definition || [], ctx, `${key}-def-${index()}`, renderNode)}</dd>
+                </>
+              )}
+            </For>
           </dl>
         )
       case 'footnote':

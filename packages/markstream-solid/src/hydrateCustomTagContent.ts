@@ -1,5 +1,5 @@
 import type { BaseNode } from 'stream-markdown-parser'
-import { normalizeCustomHtmlTagName as normalizeTagName, normalizeCustomHtmlTags } from 'stream-markdown-parser'
+import { normalizeCustomHtmlTags, normalizeCustomHtmlTagName as normalizeTagName } from 'stream-markdown-parser'
 
 interface CustomTagSegment {
   tag: string

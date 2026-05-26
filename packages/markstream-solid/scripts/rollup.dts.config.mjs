@@ -32,7 +32,7 @@ const configs = entryNames.map((entryName) => {
     external: [
       /^node:.*$/,
       /^solid-js(?:\/.*)?$/,
-      /^solid-js(?:\\/web)?(?:\/.*)?$/,
+      /^solid-js(?:\/web)?(?:\/.*)?$/,
       /^(?:katex|mermaid|stream-monaco|stream-markdown)(?:\/.*)?$/,
       /^stream-markdown-parser(?:\/.*)?$/,
       /^markstream-core(?:\/.*)?$/,

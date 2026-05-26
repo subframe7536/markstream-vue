@@ -1,8 +1,8 @@
 import type { PluginOption } from 'vite'
 import path from 'node:path'
-import solid from 'vite-plugin-solid'
 import { defineConfig } from 'vite'
 import monacoEditorPlugin from 'vite-plugin-monaco-editor-esm'
+import solid from 'vite-plugin-solid'
 
 export default defineConfig(({ mode }) => ({
   base: './',

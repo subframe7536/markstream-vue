@@ -1,10 +1,10 @@
 import type { HtmlPolicy } from 'stream-markdown-parser'
 import {
   BLOCKED_HTML_TAGS as BLOCKED_TAGS,
-  VOID_HTML_TAGS as VOID_ELEMENTS,
   isHtmlTagBlocked,
   isHtmlTagHardBlocked,
   sanitizeHtmlAttrs,
+  VOID_HTML_TAGS as VOID_ELEMENTS,
 } from 'stream-markdown-parser'
 
 function escapeHtml(input: string) {
@@ -13,7 +13,7 @@ function escapeHtml(input: string) {
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;')
+    .replaceAll('\'', '&#39;')
 }
 
 function escapeAttr(input: string) {
