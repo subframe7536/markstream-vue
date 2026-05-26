@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 import monacoEditorPlugin from 'vite-plugin-monaco-editor-esm'
 import solid from 'vite-plugin-solid'
 
-export default defineConfig(({ mode }) => ({
+export default defineConfig(() => ({
   base: './',
   server: {
     port: 4177,
@@ -12,15 +12,15 @@ export default defineConfig(({ mode }) => ({
   },
   worker: { format: 'es' },
   optimizeDeps: { exclude: ['stream-monaco'] },
-  resolve: mode === 'development'
-    ? {
-        alias: {
-          'markstream-solid': path.resolve(__dirname, '../packages/markstream-solid/src'),
-          'markstream-core': path.resolve(__dirname, '../packages/markstream-core/src/index.ts'),
-          'markstream-core/': `${path.resolve(__dirname, '../packages/markstream-core/src')}/`,
-        },
-      }
-    : undefined,
+  resolve: {
+    alias: {
+      'markstream-solid': path.resolve(__dirname, '../packages/markstream-solid/src'),
+      'markstream-core': path.resolve(__dirname, '../packages/markstream-core/src/index.ts'),
+      'markstream-core/': `${path.resolve(__dirname, '../packages/markstream-core/src')}/`,
+      'stream-markdown-parser': path.resolve(__dirname, '../packages/markdown-parser/src/index.ts'),
+      'stream-markdown-parser/': `${path.resolve(__dirname, '../packages/markdown-parser/src')}/`,
+    },
+  },
   plugins: [
     solid(),
     monacoEditorPlugin({
