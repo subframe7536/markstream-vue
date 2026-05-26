@@ -27,6 +27,7 @@ function isNodeArray(value: unknown): value is ParsedNode[] {
 }
 
 const markdownCache = new Map<string, ReturnType<typeof getMarkdown>>()
+const AUTO_DIR: JSX.HTMLAttributes<HTMLElement>['dir'] = 'auto'
 
 function resolveParsedNodes(props: NodeRendererProps, content: string) {
   if (Array.isArray(props.nodes))
@@ -86,7 +87,7 @@ function renderTable(node: any, ctx: RenderContext, prefix: string, renderNode: 
             <tr>
               <For each={headers}>
                 {(cell: any, idx) => (
-                  <th dir={'auto' as any}>{renderChildren(cell.children || [], ctx, `${prefix}-th-${idx()}`, renderNode)}</th>
+                  <th dir={AUTO_DIR}>{renderChildren(cell.children || [], ctx, `${prefix}-th-${idx()}`, renderNode)}</th>
                 )}
               </For>
             </tr>
@@ -98,7 +99,7 @@ function renderTable(node: any, ctx: RenderContext, prefix: string, renderNode: 
               <tr>
                 <For each={row.cells || []}>
                   {(cell: any, cellIndex) => (
-                    <td dir={'auto' as any}>{renderChildren(cell.children || [], ctx, `${prefix}-td-${rowIndex()}-${cellIndex()}`, renderNode)}</td>
+                    <td dir={AUTO_DIR}>{renderChildren(cell.children || [], ctx, `${prefix}-td-${rowIndex()}-${cellIndex()}`, renderNode)}</td>
                   )}
                 </For>
               </tr>
@@ -145,11 +146,11 @@ export function createRenderNode(ctxAccessor: () => RenderContext): RenderNodeFn
       case 'text_special':
         return <>{text((node as any).content)}</>
       case 'paragraph':
-        return <p dir={'auto' as any}>{renderChildren((node as any).children, ctx, key, renderNode)}</p>
+        return <p dir={AUTO_DIR}>{renderChildren((node as any).children, ctx, key, renderNode)}</p>
       case 'heading': {
         const level = Math.min(6, Math.max(1, Number((node as any).level || 1)))
         const Tag = `h${level}` as keyof JSX.IntrinsicElements
-        return <Dynamic component={Tag} dir={'auto' as any}>{renderChildren((node as any).children, ctx, key, renderNode)}</Dynamic>
+        return <Dynamic component={Tag} {...{ dir: AUTO_DIR }}>{renderChildren((node as any).children, ctx, key, renderNode)}</Dynamic>
       }
       case 'blockquote':
         return <blockquote>{renderChildren((node as any).children, ctx, key, renderNode)}</blockquote>
