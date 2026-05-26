@@ -35,7 +35,9 @@ function bumpRevision() {
     try {
       listener()
     }
-    catch {}
+    catch {
+      // Ignore subscriber failures so one bad consumer does not break the registry.
+    }
   }
 }
 

@@ -11,6 +11,12 @@ import { setDefaultI18nMap, useSafeI18n } from '../packages/markstream-solid/src
 import { buildRenderContext, resolveParsedNodes } from '../packages/markstream-solid/src/NodeRenderer'
 import { sanitizeHtmlContent } from '../packages/markstream-solid/src/sanitizeHtmlContent'
 
+interface ThinkingHtmlBlockNode {
+  type: 'html_block'
+  tag: 'thinking'
+  raw: string
+}
+
 describe('markstream-solid baseline helpers', () => {
   it('sanitizes unsafe links from HTML content', () => {
     const html = '<a href="javascript:alert(1)">bad</a><a href="https://example.com">ok</a>'
@@ -25,7 +31,7 @@ describe('markstream-solid baseline helpers', () => {
         type: 'html_block',
         tag: 'thinking',
         raw: '<thinking>hello</thinking>',
-      } as any,
+      } satisfies ThinkingHtmlBlockNode,
     ], '<thinking>hello</thinking>', ['thinking'])
 
     expect(nodes[0]).toMatchObject({

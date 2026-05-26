@@ -22,6 +22,8 @@ type HydratableNode = BaseNode & {
   [key: string]: unknown
 }
 
+// Match opening / closing HTML-like tags with optional attributes and capture
+// the normalized tag name in group 1 so custom tag content can be hydrated.
 const TAG_TOKEN_RE = /<\/?([a-z][\w:-]*)(?:\s[^<>]*)?>/gi
 
 export function hydrateCustomTagContent<T extends BaseNode>(

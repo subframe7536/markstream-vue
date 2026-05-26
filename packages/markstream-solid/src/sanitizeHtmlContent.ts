@@ -59,6 +59,8 @@ function tokenizeHtml(html: string): HtmlToken[] {
     const attrsPart = spaceIndex === -1 ? '' : normalized.slice(spaceIndex + 1)
     const attrs: Record<string, string> = {}
     if (attrsPart) {
+      // Capture: (1) attr name, (2) double-quoted value, (3) single-quoted
+      // value, or (4) unquoted value.
       const attrRegex = /([^\s=]+)(?:=(?:"([^"]*)"|'([^']*)'|(\S*)))?/g
       let match: RegExpExecArray | null
       while ((match = attrRegex.exec(attrsPart)) !== null) {
