@@ -79,6 +79,12 @@ This guide is organized by task first, framework second. Start with the shortest
 |------|-------------|
 | [Quick Start](/guide/svelte) | Svelte 5-only renderer usage, workers, and custom components |
 
+### SolidJS (markstream-solid)
+
+| Page | Description |
+|------|-------------|
+| [Quick Start](/guide/solid) | Baseline SolidJS renderer usage and scoped custom components |
+
 ### Nuxt
 
 - [Nuxt SSR Guide](/nuxt-ssr) for client-only boundaries, workers, and browser-only peers.

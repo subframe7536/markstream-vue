@@ -8,5 +8,6 @@ packages:
   - playground-nuxt
   - playground-react18
   - playground-react19
+  - playground-solid
   - playground-svelte
   - packages/*

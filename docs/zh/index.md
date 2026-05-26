@@ -104,6 +104,7 @@ features:
 | Vue 2 (`markstream-vue2`) | [Vue 2 快速开始](/zh/guide/vue2-quick-start) | 你还在 Vue 2.6 / 2.7 环境 | [在线演示](https://markstream-vue2.pages.dev/) |
 | React (`markstream-react`) | [React 快速开始](/zh/guide/react-quick-start) | 你是 React 用户，或正从 `react-markdown` 迁移 | [在线演示](https://markstream-react.pages.dev/) |
 | Angular (`markstream-angular`) | [Angular 快速开始](/zh/guide/angular-quick-start) | 你使用 standalone Angular 组件 | [在线演示](https://markstream-angular.pages.dev/) |
+| SolidJS (`markstream-solid`) | [SolidJS 快速开始](/zh/guide/solid) | 你需要 Solid 基线版渲染器、共享样式与自定义节点作用域 | 本地运行 `pnpm play:solid` |
 | Svelte (`markstream-svelte`) | [Svelte 快速开始](/zh/guide/svelte) | 你使用 Svelte 5，并希望复用一致的渲染 API 和 worker 路径 | [在线演示](https://markstream-svelte.pages.dev/) |
 
 ## 常用入口

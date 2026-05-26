@@ -104,6 +104,7 @@ All framework packages share the same core rendering model, but the entry pages 
 | Vue 2 (`markstream-vue2`) | [Vue 2 Quick Start](/guide/vue2-quick-start) | You are on Vue 2.6 / 2.7 and need the compatible package | [Live demo](https://markstream-vue2.pages.dev/) |
 | React (`markstream-react`) | [React Quick Start](/guide/react-quick-start) | You are adopting React directly or migrating from `react-markdown` | [Live demo](https://markstream-react.pages.dev/) |
 | Angular (`markstream-angular`) | [Angular Quick Start](/guide/angular-quick-start) | You are using standalone Angular components | [Live demo](https://markstream-angular.pages.dev/) |
+| SolidJS (`markstream-solid`) | [SolidJS Quick Start](/guide/solid) | You want the baseline Solid renderer contract with shared Markstream CSS | Local playground via `pnpm play:solid` |
 | Svelte (`markstream-svelte`) | [Svelte Quick Start](/guide/svelte) | You are using Svelte 5 and need the same renderer API and worker paths | [Live demo](https://markstream-svelte.pages.dev/) |
 
 ## Common Destinations

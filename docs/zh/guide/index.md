@@ -79,6 +79,12 @@ description: 按任务组织的 markstream-vue 指南，帮助你在安装、流
 |------|------|
 | [快速开始](/zh/guide/svelte) | Svelte 5-only 渲染器、workers 与自定义组件示例 |
 
+### SolidJS (markstream-solid)
+
+| 页面 | 描述 |
+|------|------|
+| [快速开始](/zh/guide/solid) | SolidJS 基线版渲染器接入与 scoped custom components |
+
 ### Nuxt
 
 - [Nuxt SSR 指南](/zh/nuxt-ssr)：处理客户端边界、workers 和浏览器专属 peers。

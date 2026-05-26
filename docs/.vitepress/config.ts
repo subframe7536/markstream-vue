@@ -7,7 +7,7 @@ import { defineConfig } from 'vitepress'
 
 const docsSiteUrl = 'https://markstream-vue-docs.simonhe.me'
 const docsOgImageUrl = `${docsSiteUrl}/og-image.svg`
-const docsDefaultDescription = 'Streaming-friendly Markdown renderer for Vue 3, Vue 2, React, Angular, and Svelte'
+const docsDefaultDescription = 'Streaming-friendly Markdown renderer for Vue 3, Vue 2, React, Angular, SolidJS, and Svelte'
 const githubRepoUrl = 'https://github.com/Simon-He95/markstream-vue'
 const docsRootDir = fileURLToPath(new URL('..', import.meta.url))
 const workspaceRootDir = fileURLToPath(new URL('../..', import.meta.url))
@@ -20,6 +20,7 @@ const markdownParserSrcDir = path.dirname(markdownParserSrc)
 const playgroundItems = [
   { text: 'Vue 3', link: 'https://markstream-vue.simonhe.me/' },
   { text: 'React', link: 'https://markstream-react.pages.dev/' },
+  { text: 'SolidJS', link: '/guide/solid' },
   { text: 'Svelte', link: 'https://markstream-svelte.pages.dev/' },
   { text: 'Nuxt', link: 'https://markstream-nuxt.pages.dev/' },
   { text: 'Vue 2', link: 'https://markstream-vue2.pages.dev/' },
@@ -111,6 +112,7 @@ const englishGuideSidebar = [
       { text: 'Migrate from react-markdown', link: '/guide/react-markdown-migration' },
       { text: 'Migration Cookbook', link: '/guide/react-markdown-migration-cookbook' },
       { text: 'Svelte Quick Start', link: '/guide/svelte' },
+      { text: 'SolidJS Quick Start', link: '/guide/solid' },
       { text: 'Angular Quick Start', link: '/guide/angular-quick-start' },
       { text: 'Angular Installation', link: '/guide/angular-installation' },
       { text: 'AI / Skills workflows', link: '/guide/ai-workflows' },
@@ -200,6 +202,7 @@ const chineseGuideSidebar = [
       { text: '从 react-markdown 迁移', link: '/zh/guide/react-markdown-migration' },
       { text: '迁移 Cookbook', link: '/zh/guide/react-markdown-migration-cookbook' },
       { text: 'Svelte 快速开始', link: '/zh/guide/svelte' },
+      { text: 'SolidJS 快速开始', link: '/zh/guide/solid' },
       { text: 'Angular 快速开始', link: '/zh/guide/angular-quick-start' },
       { text: 'Angular 安装', link: '/zh/guide/angular-installation' },
       { text: 'AI / Skills 工作流', link: '/zh/guide/ai-workflows' },
@@ -362,6 +365,7 @@ const docsSecondaryLandingPaths = new Set([
   '/guide/react-markdown-migration-cookbook',
   '/guide/vue2-quick-start',
   '/guide/react-quick-start',
+  '/guide/solid',
   '/guide/angular-quick-start',
   '/guide/troubleshooting',
 ])

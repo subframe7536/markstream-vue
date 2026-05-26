@@ -21,6 +21,7 @@ Looking for other frameworks?
 
 - Vue 2.6: use [`markstream-vue2`](./packages/markstream-vue2/README.md) (a baseline port with fewer advanced features)
 - React: see `packages/markstream-react` at [`packages/markstream-react/README.md`](./packages/markstream-react/README.md) (first-pass port)
+- SolidJS: see `packages/markstream-solid` at [`packages/markstream-solid/README.md`](./packages/markstream-solid/README.md) (experimental baseline port)
 
 ## 1.0 stability scope
 

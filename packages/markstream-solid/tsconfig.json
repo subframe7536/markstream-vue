@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "baseUrl": "./src",
+    "paths": {
+      "@markstream-solid/*": ["./*"],
+      "stream-markdown-parser": ["../../markdown-parser/src/index.ts"],
+      "stream-markdown-parser/*": ["../../markdown-parser/src/*"],
+      "markstream-core": ["../../markstream-core/src/index.ts"],
+      "markstream-core/*": ["../../markstream-core/src/*"]
+    },
+    "types": ["vite/client", "node"],
+    "allowJs": false,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["dist", "node_modules"]
+}
