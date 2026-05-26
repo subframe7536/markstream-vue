@@ -1,6 +1,9 @@
 import type { Component } from 'solid-js'
 
-export type MarkstreamSolidComponent<P = Record<string, unknown>> = Component<P>
+export type CustomComponentDisplayMode = 'inline' | 'block'
+export type MarkstreamSolidComponent<P = Record<string, unknown>> = Component<P> & {
+  markstreamDisplay?: CustomComponentDisplayMode
+}
 export type CustomComponentMap = Record<string, MarkstreamSolidComponent<any>>
 
 const GLOBAL_KEY = '__global__'
@@ -76,4 +79,16 @@ export function removeCustomComponents(id: string) {
 export function clearGlobalCustomComponents() {
   delete store.scopedComponents[GLOBAL_KEY]
   bumpRevision()
+}
+
+export function getCustomComponentDisplay(component: Component<any> | null | undefined): CustomComponentDisplayMode | undefined {
+  return (component as MarkstreamSolidComponent | null | undefined)?.markstreamDisplay
+}
+
+export function withMarkstreamComponentDisplay<T extends Component<any>>(
+  component: T,
+  display: CustomComponentDisplayMode,
+) {
+  ;(component as MarkstreamSolidComponent).markstreamDisplay = display
+  return component as T & { markstreamDisplay: CustomComponentDisplayMode }
 }

@@ -22,7 +22,7 @@ type HydratableNode = BaseNode & {
   [key: string]: unknown
 }
 
-const TAG_TOKEN_RE = /<\/?([A-Z][\w:-]*)(?:\s[^<>]*)?>/gi
+const TAG_TOKEN_RE = /<\/?([a-z][\w:-]*)(?:\s[^<>]*)?>/gi
 
 export function hydrateCustomTagContent<T extends BaseNode>(
   nodes: readonly T[] | null | undefined,

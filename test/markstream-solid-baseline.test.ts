@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest'
-import { getCustomNodeComponents, removeCustomComponents, setCustomComponents } from '../packages/markstream-solid/src/customComponents'
+import {
+  getCustomComponentDisplay,
+  getCustomNodeComponents,
+  removeCustomComponents,
+  setCustomComponents,
+  withMarkstreamComponentDisplay,
+} from '../packages/markstream-solid/src/customComponents'
 import { hydrateCustomTagContent } from '../packages/markstream-solid/src/hydrateCustomTagContent'
+import { setDefaultI18nMap, useSafeI18n } from '../packages/markstream-solid/src/i18n/useSafeI18n'
+import { buildRenderContext, resolveParsedNodes } from '../packages/markstream-solid/src/NodeRenderer'
 import { sanitizeHtmlContent } from '../packages/markstream-solid/src/sanitizeHtmlContent'
 
 describe('markstream-solid baseline helpers', () => {
@@ -42,5 +50,47 @@ describe('markstream-solid baseline helpers', () => {
 
     removeCustomComponents('solid-test')
     expect(getCustomNodeComponents('solid-test')).toMatchObject({ note: globalComponent })
+  })
+
+  it('supports custom component display metadata helpers', () => {
+    const component = (() => null) as any
+    const displayed = withMarkstreamComponentDisplay(component, 'block')
+
+    expect(displayed).toBe(component)
+    expect(getCustomComponentDisplay(component)).toBe('block')
+  })
+
+  it('provides safe i18n fallbacks with overridable defaults', () => {
+    const { t } = useSafeI18n()
+    expect(t('common.copy')).toBe('Copy')
+    expect(t('customMissingKey')).toBe('Custom Missing Key')
+
+    setDefaultI18nMap({ 'common.copy': '复制' })
+    expect(useSafeI18n().t('common.copy')).toBe('复制')
+  })
+
+  it('builds render context and resolves parsed nodes', () => {
+    const ctx = buildRenderContext({
+      content: '# Hello',
+      customId: 'solid-test-context',
+      isDark: true,
+    })
+
+    expect(ctx).toMatchObject({
+      customId: 'solid-test-context',
+      customHtmlTags: [],
+      htmlPolicy: 'safe',
+      isDark: true,
+    })
+
+    const nodes = resolveParsedNodes({
+      content: '# Hello',
+      customId: 'solid-test-context',
+    }, '# Hello')
+
+    expect(nodes[0]).toMatchObject({
+      type: 'heading',
+      level: 1,
+    })
   })
 })

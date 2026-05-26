@@ -1,7 +1,5 @@
-import type { PluginOption } from 'vite'
 import path from 'node:path'
 import { defineConfig } from 'vite'
-import monacoEditorPlugin from 'vite-plugin-monaco-editor-esm'
 import solid from 'vite-plugin-solid'
 
 export default defineConfig(() => ({
@@ -23,11 +21,5 @@ export default defineConfig(() => ({
   },
   plugins: [
     solid(),
-    monacoEditorPlugin({
-      languageWorkers: ['editorWorkerService', 'typescript', 'css', 'html', 'json'],
-      customDistPath(_root, buildOutDir) {
-        return path.resolve(buildOutDir, 'monacoeditorwork')
-      },
-    }) as unknown as PluginOption,
   ],
 }))
