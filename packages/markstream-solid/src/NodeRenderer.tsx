@@ -1,7 +1,8 @@
 import type { ParsedNode, ParseOptions } from 'stream-markdown-parser'
 import type { NodeRendererProps, RenderContext } from './types'
-import { createMemo, For } from 'solid-js'
+import { createMemo, For, useContext } from 'solid-js'
 import { getMarkdown, normalizeCustomHtmlTags, parseMarkdownToStructure } from 'stream-markdown-parser'
+import { SmoothStreamingContext } from './context/smoothStreaming'
 import { getCustomNodeComponents } from './customComponents'
 import { hydrateCustomTagContent } from './hydrateCustomTagContent'
 import { createRenderNode } from './renderers/renderNode'
@@ -56,10 +57,18 @@ export function resolveParsedNodes(props: NodeRendererProps, content: string) {
 }
 
 export function NodeRenderer(props: NodeRendererProps) {
+  const parentSmoothStreaming = useContext(SmoothStreamingContext)
   const smoothStream = useSmoothMarkdownStream(props.smoothStreamingOptions)
+  const smoothStreamingEnabled = createMemo(() => {
+    if (props.smoothStreaming === false || Array.isArray(props.nodes))
+      return false
+    if (parentSmoothStreaming?.())
+      return false
+    return props.smoothStreaming === true || props.smoothStreaming === 'auto'
+  })
   const content = createMemo(() => {
     const raw = text(props.content)
-    if (props.smoothStreaming === false || Array.isArray(props.nodes))
+    if (!smoothStreamingEnabled())
       return raw
     if (smoothStream.source !== raw) {
       if (raw.startsWith(smoothStream.source))
@@ -69,7 +78,7 @@ export function NodeRenderer(props: NodeRendererProps) {
     }
     if (props.final)
       smoothStream.finish()
-    return (props.smoothStreaming === true || props.smoothStreaming === 'auto') ? smoothStream.visible : raw
+    return smoothStream.visible
   })
 
   const renderContext = createMemo<RenderContext>(() => buildRenderContext(props))
@@ -77,11 +86,13 @@ export function NodeRenderer(props: NodeRendererProps) {
   const renderNode = createRenderNode(renderContext)
 
   return (
-    <div class={`markstream-solid markdown-renderer${props.class ? ` ${props.class}` : ''}`}>
-      <For each={parsedNodes()}>
-        {(node, index) => renderNode(node as ParsedNode, `${props.customId || 'solid'}-${index()}`, renderContext())}
-      </For>
-    </div>
+    <SmoothStreamingContext.Provider value={smoothStreamingEnabled}>
+      <div class={`markstream-solid markdown-renderer${props.class ? ` ${props.class}` : ''}`}>
+        <For each={parsedNodes()}>
+          {(node, index) => renderNode(node as ParsedNode, `${props.customId || 'solid'}-${index()}`, renderContext())}
+        </For>
+      </div>
+    </SmoothStreamingContext.Provider>
   )
 }
 

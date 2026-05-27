@@ -1,15 +1,28 @@
 import { describe, expect, it } from 'vitest'
 import {
+  disableKatex,
+  disableMermaid,
+  enableKatex,
+  enableMermaid,
   getCustomComponentDisplay,
   getCustomNodeComponents,
+  getLanguageIcon,
+  isKatexEnabled,
+  isMermaidEnabled,
+  normalizeKaTeXRenderInput,
+  normalizeLanguageIdentifier,
+  ParagraphNode,
   removeCustomComponents,
   setCustomComponents,
+  SmoothStreamingContext,
+  Tooltip,
   withMarkstreamComponentDisplay,
-} from '../packages/markstream-solid/src/customComponents'
+} from '../packages/markstream-solid/src'
 import { hydrateCustomTagContent } from '../packages/markstream-solid/src/hydrateCustomTagContent'
 import { setDefaultI18nMap, useSafeI18n } from '../packages/markstream-solid/src/i18n/useSafeI18n'
 import { buildRenderContext, resolveParsedNodes } from '../packages/markstream-solid/src/NodeRenderer'
 import { sanitizeHtmlContent } from '../packages/markstream-solid/src/sanitizeHtmlContent'
+import { setMermaidWorker } from '../packages/markstream-solid/src/workers/mermaidWorkerClient'
 
 interface ThinkingHtmlBlockNode {
   type: 'html_block'
@@ -98,5 +111,27 @@ describe('markstream-solid baseline helpers', () => {
       type: 'heading',
       level: 1,
     })
+  })
+
+  it('exposes the new Solid parity surface', () => {
+    expect(typeof ParagraphNode).toBe('function')
+    expect(typeof Tooltip).toBe('function')
+    expect(SmoothStreamingContext).toBeTruthy()
+    expect(typeof setMermaidWorker).toBe('function')
+    expect(normalizeLanguageIdentifier('ts')).toBe('typescript')
+    expect(getLanguageIcon('mermaid')).toContain('<svg')
+    expect(normalizeKaTeXRenderInput('25℃ · x')).toBe('25°C ⋅ x')
+  })
+
+  it('supports optional runtime toggles', () => {
+    disableKatex()
+    disableMermaid()
+    expect(isKatexEnabled()).toBe(false)
+    expect(isMermaidEnabled()).toBe(false)
+
+    enableKatex(() => ({ renderToString: () => '' }))
+    enableMermaid(() => ({ parse: () => true }))
+    expect(isKatexEnabled()).toBe(true)
+    expect(isMermaidEnabled()).toBe(true)
   })
 })

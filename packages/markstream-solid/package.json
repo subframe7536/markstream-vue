@@ -34,7 +34,9 @@
     "./index.css": "./dist/index.css",
     "./index.px.css": "./dist/index.px.css",
     "./index.tailwind.css": "./dist/index.tailwind.css",
-    "./tailwind": "./dist/tailwind.ts"
+    "./tailwind": "./dist/tailwind.ts",
+    "./workers/katexRenderer.worker": "./dist/workers/katexRenderer.worker.js",
+    "./workers/mermaidParser.worker": "./dist/workers/mermaidParser.worker.js"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -54,10 +56,32 @@
     "release": "pnpm run check:core-published && bumpp --commit --no-tag --no-push && pnpm publish --access public && node ../../scripts/tag-package.mjs --package-json package.json --push"
   },
   "peerDependencies": {
-    "solid-js": ">=1.9"
+    "@antv/infographic": "^0.2.3",
+    "@terrastruct/d2": ">=0.1.33",
+    "katex": ">=0.16.22",
+    "mermaid": ">=11",
+    "solid-js": ">=1.9",
+    "stream-monaco": ">=0.0.41"
   },
-  "peerDependenciesMeta": {},
+  "peerDependenciesMeta": {
+    "@antv/infographic": {
+      "optional": true
+    },
+    "@terrastruct/d2": {
+      "optional": true
+    },
+    "katex": {
+      "optional": true
+    },
+    "mermaid": {
+      "optional": true
+    },
+    "stream-monaco": {
+      "optional": true
+    }
+  },
   "dependencies": {
+    "@floating-ui/dom": "^1.7.6",
     "markstream-core": "workspace:*",
     "stream-markdown-parser": "workspace:*"
   },

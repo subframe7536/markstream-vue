@@ -25,15 +25,19 @@ export interface RenderContext {
   htmlPolicy?: HtmlPolicy
   customComponents?: CustomComponentMap
   isDark?: boolean
+  typewriter?: boolean
+  fade?: boolean
 }
 
 export interface NodeComponentProps<TNode = unknown> {
   node: TNode
   ctx?: RenderContext
   renderNode?: RenderNodeFn
-  indexKey?: string
+  indexKey?: string | number
   customId?: string
   isDark?: boolean
+  typewriter?: boolean
+  fade?: boolean
   children?: JSX.Element
 }
 
