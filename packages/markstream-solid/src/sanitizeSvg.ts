@@ -57,13 +57,13 @@ function scrubSvgElement(svgEl: SVGElement) {
 }
 
 export function toSafeSvgMarkup(svg: string | null | undefined) {
-  if (typeof DOMParser === 'undefined')
+  if (typeof globalThis === 'undefined' || typeof globalThis.DOMParser === 'undefined')
     return ''
   if (!svg)
     return ''
 
   const neutralized = neutralizeScriptProtocols(svg)
-  const parsed = new DOMParser().parseFromString(neutralized, 'image/svg+xml')
+  const parsed = new globalThis.DOMParser().parseFromString(neutralized, 'image/svg+xml')
   const svgEl = parsed.documentElement
   if (!svgEl || svgEl.nodeName.toLowerCase() !== 'svg')
     return ''

@@ -60,18 +60,18 @@ export function setElementHtml(target: HTMLElement | null | undefined, html: str
 }
 
 export function downloadSvgMarkup(svgMarkup: string, filename: string) {
-  if (!svgMarkup || typeof document === 'undefined' || typeof URL === 'undefined')
+  if (!svgMarkup || typeof globalThis === 'undefined' || typeof globalThis.document === 'undefined' || typeof globalThis.URL === 'undefined')
     return
 
   const blob = new Blob([svgMarkup], { type: 'image/svg+xml;charset=utf-8' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
+  const url = globalThis.URL.createObjectURL(blob)
+  const link = globalThis.document.createElement('a')
   link.href = url
   link.download = filename
-  document.body.appendChild(link)
+  globalThis.document.body.appendChild(link)
   link.click()
-  document.body.removeChild(link)
-  URL.revokeObjectURL(url)
+  globalThis.document.body.removeChild(link)
+  globalThis.URL.revokeObjectURL(url)
 }
 
 export function resolveCssSize(value: unknown, fallback?: string) {

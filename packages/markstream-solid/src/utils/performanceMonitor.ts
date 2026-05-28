@@ -131,7 +131,9 @@ export function getPerfReport() {
   return perfMonitor.printReport()
 }
 
-if (typeof window !== 'undefined') {
-  ;(window as any).__katexPerfMonitor = perfMonitor
-  ;(window as any).__katexPerfReport = getPerfReport
+const isDevEnv = typeof import.meta !== 'undefined' && Boolean(import.meta.env?.DEV)
+
+if (isDevEnv && typeof globalThis !== 'undefined' && typeof globalThis.window !== 'undefined') {
+  ;(globalThis.window as any).__katexPerfMonitor = perfMonitor
+  ;(globalThis.window as any).__katexPerfReport = getPerfReport
 }
