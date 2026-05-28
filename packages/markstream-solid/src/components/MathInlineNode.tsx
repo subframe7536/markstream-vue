@@ -1,5 +1,8 @@
-import { createNodeComponent } from './shared'
+import type { NodeComponentProps } from '../types'
+import { renderStandaloneNode } from './shared'
 
-export const MathInlineNode = createNodeComponent()
+export function MathInlineNode(props: NodeComponentProps<any>) {
+  return renderStandaloneNode(props)
+}
 
 export default MathInlineNode

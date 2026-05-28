@@ -4,20 +4,32 @@ import {
   disableMermaid,
   enableKatex,
   enableMermaid,
+  EXTENDED_LANGUAGE_ICON_MAP,
+  extractRenderedSvg,
   getCustomComponentDisplay,
   getCustomNodeComponents,
   getLanguageIcon,
+  HtmlPreviewFrame,
+  InlineWrapNode,
   isKatexEnabled,
   isMermaidEnabled,
+  isParagraphBreakingCustomHtmlNode,
+  NodeOutlet,
   normalizeKaTeXRenderInput,
   normalizeLanguageIdentifier,
   ParagraphNode,
+  parseNestedMarkdownToNodes,
   removeCustomComponents,
+  RenderChildren,
+  renderMarkdownToHtml,
+  resolveCustomHtmlTag,
   setCustomComponents,
   SmoothStreamingContext,
   Tooltip,
+  toSafeSvgMarkup,
   withMarkstreamComponentDisplay,
 } from '../packages/markstream-solid/src'
+import { useSmoothMarkdownStream as useSmoothMarkdownStreamHook } from '../packages/markstream-solid/src/hooks/useSmoothMarkdownStream'
 import { hydrateCustomTagContent } from '../packages/markstream-solid/src/hydrateCustomTagContent'
 import { setDefaultI18nMap, useSafeI18n } from '../packages/markstream-solid/src/i18n/useSafeI18n'
 import { buildRenderContext, resolveParsedNodes } from '../packages/markstream-solid/src/NodeRenderer'
@@ -79,6 +91,27 @@ describe('markstream-solid baseline helpers', () => {
     expect(getCustomComponentDisplay(component)).toBe('block')
   })
 
+  it('resolves custom HTML tag metadata helpers', () => {
+    const thinking = withMarkstreamComponentDisplay((() => null) as any, 'block')
+    const resolved = resolveCustomHtmlTag(
+      { type: 'html_block', tag: 'thinking', content: '<thinking>hello</thinking>' } as any,
+      { thinking },
+      ['thinking'],
+    )
+
+    expect(resolved).toMatchObject({
+      tag: 'thinking',
+      isWhitelisted: true,
+      component: thinking,
+      display: 'block',
+    })
+    expect(isParagraphBreakingCustomHtmlNode(
+      { type: 'html_block', tag: 'thinking', content: '<thinking>hello</thinking>' } as any,
+      { thinking },
+      ['thinking'],
+    )).toBe(true)
+  })
+
   it('provides safe i18n fallbacks with overridable defaults', () => {
     const { t } = useSafeI18n()
     expect(t('common.copy')).toBe('Copy')
@@ -113,13 +146,40 @@ describe('markstream-solid baseline helpers', () => {
     })
   })
 
+  it('parses nested markdown and renders it to HTML strings', () => {
+    const nodes = parseNestedMarkdownToNodes({
+      content: '## Nested',
+    }, {
+      final: true,
+    })
+
+    expect(nodes[0]).toMatchObject({
+      type: 'heading',
+      level: 2,
+    })
+    expect(typeof renderMarkdownToHtml).toBe('function')
+  })
+
+  it('sanitizes rendered SVG fragments', () => {
+    const svg = toSafeSvgMarkup('<svg><script>alert(1)</script><a href=\"javascript:alert(1)\"><rect width=\"1\" height=\"1\" /></a></svg>')
+    expect(svg).not.toContain('<script')
+    expect(svg).not.toContain('javascript:alert')
+    expect(extractRenderedSvg({ svg: '<svg />' })).toBe('<svg />')
+  })
+
   it('exposes the new Solid parity surface', () => {
     expect(typeof ParagraphNode).toBe('function')
     expect(typeof Tooltip).toBe('function')
+    expect(typeof HtmlPreviewFrame).toBe('function')
+    expect(typeof InlineWrapNode).toBe('function')
+    expect(typeof NodeOutlet).toBe('function')
+    expect(typeof RenderChildren).toBe('function')
     expect(SmoothStreamingContext).toBeTruthy()
     expect(typeof setMermaidWorker).toBe('function')
+    expect(typeof useSmoothMarkdownStreamHook).toBe('function')
     expect(normalizeLanguageIdentifier('ts')).toBe('typescript')
     expect(getLanguageIcon('mermaid')).toContain('<svg')
+    expect(EXTENDED_LANGUAGE_ICON_MAP.svg).toContain('<svg')
     expect(normalizeKaTeXRenderInput('25℃ · x')).toBe('25°C ⋅ x')
   })
 

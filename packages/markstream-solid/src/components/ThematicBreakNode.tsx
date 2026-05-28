@@ -1,5 +1,8 @@
-import { createNodeComponent } from './shared'
+import type { NodeComponentProps } from '../types'
+import { renderStandaloneNode } from './shared'
 
-export const ThematicBreakNode = createNodeComponent()
+export function ThematicBreakNode(props: NodeComponentProps<any>) {
+  return renderStandaloneNode(props)
+}
 
 export default ThematicBreakNode

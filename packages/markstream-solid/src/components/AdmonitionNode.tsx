@@ -1,5 +1,8 @@
-import { createNodeComponent } from './shared'
+import type { NodeComponentProps } from '../types'
+import { renderStandaloneNode } from './shared'
 
-export const AdmonitionNode = createNodeComponent()
+export function AdmonitionNode(props: NodeComponentProps<any>) {
+  return renderStandaloneNode(props)
+}
 
 export default AdmonitionNode

@@ -34,9 +34,12 @@ export { HeadingNode } from './components/HeadingNode'
 export { HighlightNode } from './components/HighlightNode'
 export { HtmlBlockNode } from './components/HtmlBlockNode'
 export { HtmlInlineNode } from './components/HtmlInlineNode'
+export { HtmlPreviewFrame } from './components/HtmlPreviewFrame'
+export type { HtmlPreviewFrameProps } from './components/HtmlPreviewFrame'
 export { ImageNode } from './components/ImageNode'
 export { InfographicBlockNode } from './components/InfographicBlockNode'
 export { InlineCodeNode } from './components/InlineCodeNode'
+export { InlineWrapNode } from './components/InlineWrapNode'
 export { InsertNode } from './components/InsertNode'
 export { LinkNode } from './components/LinkNode'
 export { ListItemNode } from './components/ListItemNode'
@@ -45,11 +48,32 @@ export { MarkdownCodeBlockNode } from './components/MarkdownCodeBlockNode'
 export { MathBlockNode } from './components/MathBlockNode'
 export { MathInlineNode } from './components/MathInlineNode'
 export { MermaidBlockNode } from './components/MermaidBlockNode'
+export { NodeOutlet } from './components/NodeOutlet'
 export { default, NodeRenderer } from './components/NodeRenderer'
 export { default as MarkdownRender } from './components/NodeRenderer'
 export { ParagraphNode } from './components/ParagraphNode'
 export { PreCodeNode } from './components/PreCodeNode'
 export { ReferenceNode } from './components/ReferenceNode'
+export { RenderChildren } from './components/RenderChildren'
+export {
+  buildRenderContext,
+  getMeaningfulLinkChildren,
+  getNodeList,
+  isImageOnlyLinkNode,
+  isMediaOnlyParagraphNodes,
+  normalizeMediaOnlyParagraphNodes,
+  resolveParsedNodes,
+} from './components/shared/node-helpers'
+export type {
+  CodeBlockPreviewPayload as SolidCodeBlockPreviewPayload,
+  NodeRendererCodeBlockProps as SolidNodeRendererCodeBlockProps,
+  NodeRendererD2Props as SolidNodeRendererD2Props,
+  NodeRendererEvents as SolidNodeRendererEvents,
+  NodeRendererInfographicProps as SolidNodeRendererInfographicProps,
+  NodeRendererMermaidProps as SolidNodeRendererMermaidProps,
+  SolidRenderableNode,
+  SolidRenderContext,
+} from './components/shared/node-helpers'
 export { StrikethroughNode } from './components/StrikethroughNode'
 export { StrongNode } from './components/StrongNode'
 export { SubscriptNode } from './components/SubscriptNode'
@@ -77,6 +101,14 @@ export {
   subscribeCustomComponents,
   withMarkstreamComponentDisplay,
 } from './customComponents'
+export {
+  disposeRenderedHtmlEnhancements,
+  enhanceRenderedHtml,
+} from './enhanceRenderedHtml'
+export type {
+  EnhanceRenderedHtmlOptions,
+  RenderedHtmlEnhancementHandle,
+} from './enhanceRenderedHtml'
 export { hydrateCustomTagContent } from './hydrateCustomTagContent'
 export { setDefaultI18nMap, useSafeI18n } from './i18n/useSafeI18n'
 export type { D2Loader } from './optional/d2'
@@ -91,9 +123,27 @@ export {
   preloadCodeBlockRuntime,
   resetCodeBlockRuntimeReadyForTest,
 } from './optional/monaco'
+export { parseNestedMarkdownToNodes } from './parseNestedMarkdownToNodes'
+export type {
+  NestedMarkdownNodesInput,
+  NestedMarkdownNodesOptions,
+} from './parseNestedMarkdownToNodes'
 export { renderInline, renderNodeChildren } from './renderers/renderChildren'
 export { createRenderNode } from './renderers/renderNode'
+export {
+  renderMarkdownNodesToHtml,
+  renderMarkdownNodeToHtml,
+  renderMarkdownToHtml,
+  renderNestedMarkdownToHtml,
+} from './renderMarkdownHtml'
+export type {
+  MarkstreamSolidRenderOptions,
+  NestedMarkdownHtmlInput,
+  NestedMarkdownHtmlOptions,
+  RenderableMarkdownNode,
+} from './renderMarkdownHtml'
 export { sanitizeHtmlContent } from './sanitizeHtmlContent'
+export { extractRenderedSvg, toSafeSvgMarkup } from './sanitizeSvg'
 export type {
   CodeBlockNodeProps,
   CodeBlockPreviewPayload,
@@ -122,6 +172,10 @@ export type {
 } from './types/monaco'
 export type { NodeComponentProps as SolidNodeComponentProps } from './types/node-component'
 export {
+  isParagraphBreakingCustomHtmlNode,
+  resolveCustomHtmlTag,
+} from './utils/customHtmlTag'
+export {
   getLanguageIcon,
   isLikelyIncompleteLanguageIdentifier,
   languageMap,
@@ -130,7 +184,25 @@ export {
   setLanguageIconResolver,
 } from './utils/languageIcon'
 export type { LanguageIconResolver } from './utils/languageIcon'
+export { EXTENDED_LANGUAGE_ICON_MAP } from './utils/languageIconExtended'
 export { normalizeKaTeXRenderInput } from './utils/normalizeKaTeXRenderInput'
+export {
+  disablePerfMonitoring,
+  enablePerfMonitoring,
+  getPerfReport,
+  perfMonitor,
+} from './utils/performanceMonitor'
+export { safeCancelRaf, safeRaf } from './utils/safeRaf'
+export {
+  resolveStreamingTextState,
+  resolveStreamingTextUpdate,
+} from './utils/streamingTextState'
+export type {
+  ResolveStreamingTextStateOptions,
+  ResolveStreamingTextUpdateOptions,
+  StreamingRenderState,
+  StreamingTextStateResult,
+} from './utils/streamingTextState'
 export * from './workers/katexCdnWorker'
 export * from './workers/katexWorkerClient'
 export * from './workers/mermaidCdnWorker'
